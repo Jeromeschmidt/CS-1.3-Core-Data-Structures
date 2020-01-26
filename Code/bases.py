@@ -18,11 +18,12 @@ def decode(digits, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # TODO: Decode digits from binary (base 2)
-    # ...
-    # TODO: Decode digits from hexadecimal (base 16)
-    # ...
-    # TODO: Decode digits from any base (2 up to 36)
-    # ...
+    result = 0
+    digits = digits[::-1]
+
+    for i in range(len(digits)):
+        result += (int(digits[i], base)*(base**i))
+    return result
 
 
 def encode(number, base):
@@ -35,11 +36,19 @@ def encode(number, base):
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
     # TODO: Encode number in binary (base 2)
-    # ...
     # TODO: Encode number in hexadecimal (base 16)
-    # ...
     # TODO: Encode number in any base (2 up to 36)
-    # ...
+    useable_digits = string.digits + string.ascii_lowercase
+    result = ""
+    if base <= 1:
+        return number
+    remainder = number % base
+    quotient = number / base
+    while quotient > 0:
+        result = useable_digits[remainder] + result
+        remainder = int(quotient) % base
+        quotient = int(quotient) / base
+    return result
 
 
 def convert(digits, base1, base2):
@@ -52,17 +61,33 @@ def convert(digits, base1, base2):
     assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
     # TODO: Convert digits from base 2 to base 16 (and vice versa)
-    # ...
+    result = None
+
+    if (base1 == 2 and base2 == 16) or (base1 == 16 and base2 == 2):
+        if base1 == 2:
+            pass
+        else:
+            pass
     # TODO: Convert digits from base 2 to base 10 (and vice versa)
-    # ...
+    elif (base1 == 2 and base2 == 10) or (base1 == 10 and base2 == 2):
+        if base1 == 2:
+            pass
+        else:
+            pass
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    # ...
+    elif (base1 == 10 and base2 == 16) or (base1 == 16 and base2 == 10):
+        if base1 == 10:
+            pass
+        else:
+            pass
     # TODO: Convert digits from any base to any base (2 up to 36)
-    # ...
+    else:
+        pass
 
 
 def main():
     """Read command-line arguments and convert given digits between bases."""
+    print(encode(1234, 16))
     import sys
     args = sys.argv[1:]  # Ignore script file name
     if len(args) == 3:
