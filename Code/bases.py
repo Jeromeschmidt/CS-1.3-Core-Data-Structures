@@ -19,10 +19,23 @@ def decode(digits, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # TODO: Decode digits from binary (base 2)
     result = 0
-    digits = digits[::-1]
-
+    # digits = digits[::-1]
+    # digits = digits.split(".")
+    # if(len(digits) == 1):
+    #     for i in range(len(digits)):
+    #         result += (int(digits[i], base)*(base**i))
+    #     return result
+    # if(len(digits) == 2):
+    #     for i in range(len(digits[1])):
+    #         result += (int(digits[1][i], base)*(base**i))
+    #     for j in range(len(digits[0])):
+    #         result += (int(digits[0][j], base)*(base**(-(j+1))))
+    # return result
+    highest_power = len(digits.split(".")[0])-1
+    digits = digits.replace(".", "")
     for i in range(len(digits)):
-        result += (int(digits[i], base)*(base**i))
+        result += (int(digits[i], base)*(base**highest_power))
+        highest_power -= 1
     return result
 
 
@@ -50,7 +63,6 @@ def encode(number, base):
         quotient = int(quotient) / base
     return result
 
-
 def convert(digits, base1, base2):
     """Convert given digits in base1 to digits in base2.
     digits: str -- string representation of number (in base1)
@@ -67,6 +79,9 @@ def convert(digits, base1, base2):
 
 def main():
     """Read command-line arguments and convert given digits between bases."""
+    print(decode("1101.101", 2))
+    print(encode(13.625, 2))
+    print(encode(4.47, 2))
     import sys
     args = sys.argv[1:]  # Ignore script file name
     if len(args) == 3:
