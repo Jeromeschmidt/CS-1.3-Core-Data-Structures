@@ -10,7 +10,7 @@ import string
 # string.printable is digits + ascii_letters + punctuation + whitespace
 
 
-def decode(digits, base):
+def decode(digits, base, signed=False):
     """Decode given digits in given base to number in base 10.
     digits: str -- string representation of number (in given base)
     base: int -- base of given number
@@ -19,22 +19,22 @@ def decode(digits, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # TODO: Decode digits from binary (base 2)
     result = 0
-    # digits = digits[::-1]
-    # digits = digits.split(".")
-    # if(len(digits) == 1):
-    #     for i in range(len(digits)):
-    #         result += (int(digits[i], base)*(base**i))
-    #     return result
-    # if(len(digits) == 2):
-    #     for i in range(len(digits[1])):
-    #         result += (int(digits[1][i], base)*(base**i))
-    #     for j in range(len(digits[0])):
-    #         result += (int(digits[0][j], base)*(base**(-(j+1))))
-    # return result
-    highest_power = len(digits.split(".")[0])-1
-    digits = digits.replace(".", "")
+    useable_digits = string.digits + string.ascii_lowercase
+    highest_power = len(str(digits).split(".")[0])-1
+    digits = str(digits).replace(".", "")
+
+    if signed == True:
+        if base == 2 and (digits[0] == "1"):
+            highest_power -= 1
+            for i in range(1, len(digits), 1):
+                if digits[i] == "1":
+                    result += (base**(highest_power))
+                highest_power -= 1
+            result = 0 - result
+            return result
+
     for i in range(len(digits)):
-        result += (int(digits[i], base)*(base**highest_power))
+        result += (useable_digits.index(digits[i])*(base**(highest_power)))
         highest_power -= 1
     return result
 
@@ -47,7 +47,7 @@ def encode(number, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
-    assert number >= 0, 'number is negative: {}'.format(number)
+    # assert number >= 0, 'number is negative: {}'.format(number)
     # TODO: Encode number in binary (base 2)
     # TODO: Encode number in hexadecimal (base 16)
     # TODO: Encode number in any base (2 up to 36)
@@ -55,12 +55,35 @@ def encode(number, base):
     result = ""
     if base <= 1:
         return number
-    remainder = number % base
-    quotient = number / base
+    if number < 0:
+        digits = -number
+    else:
+        digits = number
+    remainder = digits % base
+    quotient = digits / base
     while quotient > 0:
-        result = useable_digits[remainder] + result
+        result = useable_digits[int(remainder)] + result
         remainder = int(quotient) % base
         quotient = int(quotient) / base
+    if type(number) is float:
+        result = result + "."
+        digits = str(number).split(".")[1]
+        print("!")
+        digits = int(digits)/(10**(len(digits)))
+        multi = digits * base
+        for i in range(5):
+            # print("!!")
+            # print(multi)
+            if multi > 1 :
+                result = result + "1"
+                multi -= 1
+            else:
+                result = result + "0"
+            multi = multi * base
+
+    if number < 0 and base == 2:
+        result = "1" + result
+
     return result
 
 def convert(digits, base1, base2):
@@ -79,9 +102,17 @@ def convert(digits, base1, base2):
 
 def main():
     """Read command-line arguments and convert given digits between bases."""
+    # print(decode("235", 8))
+    # print(decode("235.01", 16))
+    # print(encode(77, 16))
+    print(decode("01001000", 2))
+    print(decode("11001000", 2, True))
+    # print(decode("110.101", 2))
     print(decode("1101.101", 2))
+    # print(encode(13, 2))
     print(encode(13.625, 2))
-    print(encode(4.47, 2))
+    print(encode(-13.625, 2))
+    # print(encode(4.47, 2))
     import sys
     args = sys.argv[1:]  # Ignore script file name
     if len(args) == 3:
