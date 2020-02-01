@@ -68,18 +68,12 @@ def encode(number, base):
     if type(number) is float:
         result = result + "."
         digits = str(number).split(".")[1]
-        print("!")
-        digits = int(digits)/(10**(len(digits)))
-        multi = digits * base
-        for i in range(5):
-            # print("!!")
-            # print(multi)
-            if multi > 1 :
-                result = result + "1"
-                multi -= 1
-            else:
-                result = result + "0"
-            multi = multi * base
+        for index, value in enumerate(digits):
+            character = useable_digits.index(value)
+            print("!!")
+            print(result)
+            character *= (base**(-1*(index+1)))
+            result += str(character)
 
     if number < 0 and base == 2:
         result = "1" + result

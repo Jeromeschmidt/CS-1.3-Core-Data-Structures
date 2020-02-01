@@ -1,13 +1,14 @@
 #!python
+from utils import time_it
 
 def linear_search(array, item):
     """return the first index of item in array or None if item is not found"""
     # implement linear_search_iterative and linear_search_recursive below, then
     # change this to call your implementation to verify it passes all tests
-    # return linear_search_iterative(array, item)
-    return linear_search_recursive(array, item)
+    return linear_search_iterative(array, item)
+    # return linear_search_recursive(array, item)
 
-
+@time_it
 def linear_search_iterative(array, item):
     # loop over all array values until item is found
     # Time complexity: O(n)
@@ -16,7 +17,7 @@ def linear_search_iterative(array, item):
             return index  # found
     return None  # not found
 
-
+@time_it
 def linear_search_recursive(array, item, index=0):
     # TODO: implement linear search recursively here
     # Time complexity: O(n)
@@ -36,7 +37,7 @@ def binary_search(array, item):
     return binary_search_iterative(array, item)
     # return binary_search_recursive(array, item)
 
-
+@time_it
 def binary_search_iterative(array, item):
     # TODO: implement binary search iteratively here
     # Time complexity: O(logn)
@@ -58,6 +59,7 @@ def binary_search_iterative(array, item):
     # to verify that your iterative implementation passes all tests
 
 
+# @time_it
 def binary_search_recursive(array, item, left=None, right=None):
     # TODO: implement binary search recursively here
     # Time complexity: O(logn)
@@ -79,9 +81,14 @@ def binary_search_recursive(array, item, left=None, right=None):
     # to verify that your recursive implementation passes all tests
 
 def main():
+    words = list(open("/usr/share/dict/words","r"))
     names = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
-    print(binary_search(names, 'Winnie'))
-    print(binary_search(names, 'nobody'))
+    # print(binary_search(names, 'Winnie'))
+    # linear_search(words, 'the')
+    # print(words[len(words)-1])
+    # linear_search(words, 'the')
+    binary_search(words, 'Winnie')
+    binary_search(words, 'Zyzzogeton')
 
 if __name__ == '__main__':
     main()
