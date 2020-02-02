@@ -31,8 +31,20 @@ def factorial_recursive(n):
         # call function recursively
         return n * factorial_recursive(n - 1)
 
+def permutation(n, r):
+    if r > n:
+        raise ValueError("cannot have r > n")
+    return (factorial(n)/(factorial(n-r)))
+
+def combination(n, r):
+    if r > n:
+        raise ValueError("cannot have r > n")
+    return (factorial(n)/((factorial(n-r))*factorial(r)))
 
 def main():
+    # print(permuation(3, 10))
+    print(permutation(10, 3))
+    print(combination(10, 3))
     import sys
     args = sys.argv[1:]  # Ignore script file name
     if len(args) == 1:

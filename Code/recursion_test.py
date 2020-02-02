@@ -1,6 +1,6 @@
 #!python
 
-from recursion import factorial
+from recursion import factorial, permutation, combination
 import unittest
 
 
@@ -37,6 +37,23 @@ class RecursionTest(unittest.TestCase):
             factorial(2.0)
             factorial(3.14159)
 
+    def test_permutation(self):
+        with self.assertRaises(ValueError):
+            permutation(3, 10)
+        assert permutation(10, 3) == 720
+        assert permutation(15, 4) == 32760
+        assert permutation(20, 5) == 1860480
+        assert permutation(25, 6) == 127512000
+        assert permutation(30, 7) == 10260432000
+
+    def test_combination(self):
+        with self.assertRaises(ValueError):
+            combination(3, 10)
+        assert combination(10, 3) == 120
+        assert combination(15, 4) == 1365
+        assert combination(20, 5) == 15504
+        assert combination(25, 6) == 177100
+        assert combination(30, 7) == 2035800
 
 if __name__ == '__main__':
     unittest.main()
