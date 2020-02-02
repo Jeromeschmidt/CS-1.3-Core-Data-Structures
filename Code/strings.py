@@ -5,7 +5,13 @@ def contains(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement contains here (iteratively and/or recursively)
-
+    if text[:len(pattern)] == pattern:
+        return True
+    else:
+        if len(text) < len(pattern):
+            return False
+        return contains(text[1:], pattern)
+    return False
 
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
@@ -13,6 +19,17 @@ def find_index(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_index here (iteratively and/or recursively)
+    # if text[:len(pattern)] == pattern:
+    #     return index
+    # else:
+    #     if len(text) < len(pattern):
+    #         return None
+    #     return find_index(text[1:], pattern, index+1)
+    # return None
+    for i in range(len(text)):
+        if text[i:i+len(pattern)] == pattern:
+            return i
+    return None
 
 
 def find_all_indexes(text, pattern):
@@ -21,7 +38,13 @@ def find_all_indexes(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_all_indexes here (iteratively and/or recursively)
-
+    indexes = list()
+    for i in range(len(text)):
+        if text[i:i+len(pattern)] == pattern:
+            indexes.append(i)
+    if indexes is not []:
+        return indexes
+    return None
 
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)
@@ -36,6 +59,7 @@ def test_string_algorithms(text, pattern):
 
 def main():
     """Read command-line arguments and test string searching algorithms."""
+    print(find_index('abc', 'b') == 1)
     import sys
     args = sys.argv[1:]  # Ignore script file name
     if len(args) == 2:
