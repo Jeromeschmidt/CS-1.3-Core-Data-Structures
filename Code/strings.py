@@ -19,13 +19,6 @@ def find_index(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_index here (iteratively and/or recursively)
-    # if text[:len(pattern)] == pattern:
-    #     return index
-    # else:
-    #     if len(text) < len(pattern):
-    #         return None
-    #     return find_index(text[1:], pattern, index+1)
-    # return None
     for i in range(len(text)):
         if text[i:i+len(pattern)] == pattern:
             return i

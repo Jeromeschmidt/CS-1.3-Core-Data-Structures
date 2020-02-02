@@ -65,15 +65,13 @@ def encode(number, base):
         result = useable_digits[int(remainder)] + result
         remainder = int(quotient) % base
         quotient = int(quotient) / base
-    if type(number) is float:
-        result = result + "."
-        digits = str(number).split(".")[1]
-        for index, value in enumerate(digits):
-            character = useable_digits.index(value)
-            print("!!")
-            print(result)
-            character *= (base**(-1*(index+1)))
-            result += str(character)
+    # if type(number) is float:
+    #     result = result + "."
+    #     digits = str(number).split(".")[1]
+    #     for index, value in enumerate(digits):
+    #         character = useable_digits.index(value)
+    #         character *= (base**(-1*(index+1)))
+    #         result += str(character)
 
     if number < 0 and base == 2:
         result = "1" + result
@@ -99,10 +97,10 @@ def main():
     # print(decode("235", 8))
     # print(decode("235.01", 16))
     # print(encode(77, 16))
-    print(decode("01001000", 2))
-    print(decode("11001000", 2, True))
+    # print(decode("01001000", 2))
+    # print(decode("11001000", 2, True))
     # print(decode("110.101", 2))
-    print(decode("1101.101", 2))
+    # print(decode("1101.101", 2))
     # print(encode(13, 2))
     print(encode(13.625, 2))
     print(encode(-13.625, 2))
