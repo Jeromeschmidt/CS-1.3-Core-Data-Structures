@@ -164,8 +164,6 @@ class HashTable(object):
         for key, value in l1:
             self.set(key, value)
 
-
-
 def test_hash_table():
     ht = HashTable(4)
     print('HashTable: ' + str(ht))
