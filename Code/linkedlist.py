@@ -1,5 +1,7 @@
 #!python
 
+###Doubly linked list and tests can be found at: https://github.com/Jeromeschmidt/CS-1.2-Intro-Data-Structures/blob/master/Code/linkedlist.py
+
 class Node(object):
 
     def __init__(self, data):
@@ -10,6 +12,9 @@ class Node(object):
     def __repr__(self):
         """Return a string representation of this node."""
         return 'Node({!r})'.format(self.data)
+
+    def __iter__(self, node):
+        return node.next
 
 
 class LinkedList(object):
