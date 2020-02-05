@@ -80,10 +80,11 @@ class ArrayStack(object):
     def length(self):
         """Return the number of items in this stack."""
         # TODO: Count number of items
-        count = 0
-        for item in self.list:
-            count += 1
-        return count
+        # count = 0
+        # for item in self.list:
+        #     count += 1
+        # return count
+        return len(self.list)
 
     def push(self, item):
         """Insert the given item on the top of this stack.

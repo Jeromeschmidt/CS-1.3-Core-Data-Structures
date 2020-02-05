@@ -82,10 +82,11 @@ class ArrayQueue(object):
     def length(self):
         """Return the number of items in this queue."""
         # TODO: Count number of items
-        count = 0
-        for item in self.list:
-            count += 1
-        return count
+        # count = 0
+        # for item in self.list:
+        #     count += 1
+        # return count
+        return len(self.list)
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
@@ -116,5 +117,5 @@ class ArrayQueue(object):
 
 # Implement LinkedQueue and ArrayQueue above, then change the assignment below
 # to use each of your Queue implementations to verify they each pass all tests
-# Queue = LinkedQueue
-Queue = ArrayQueue
+Queue = LinkedQueue
+# Queue = ArrayQueue
