@@ -50,7 +50,13 @@ def insertion_sort(items):
     # TODO: Repeat until all items are in sorted order
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
-
+    for i in range(1, len(items)):
+        current_index = items[i]
+        temp_index = i-1
+        while (temp_index >= 0) and (current_index < items[temp_index]):
+            items[temp_index+1] = items[temp_index]
+            temp_index -= 1
+        items[temp_index+1] = current_index
 
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
