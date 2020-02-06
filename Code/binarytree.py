@@ -220,6 +220,21 @@ class BinarySearchTree(object):
             # TODO: Recursively descend to the node's right child, if it exists
             return self._find_parent_node_recursive(item, node.right, node)  # Hint: Remember to update the parent parameter
 
+    def find_inorder_successor(self, node):
+        # if self.height() == 1:
+        #     return self.root.right
+        # while node.right != None:#node.is_branch():
+        #     node = node.right
+        # parent = self._find_parent_node_recursive(node.data, self.root)
+        # if parent.left != None:
+        #     return parent.left
+        # else:
+        #     return parent
+        items = self.items_in_order()
+        for i in range(len(items)):
+            if items[i] == node.data:
+                return BinaryTreeNode(items[i+1])
+
     def delete(self, item):
         """Remove given item from this tree, if present, or raise ValueError.
         TODO: Best case running time: ??? under what conditions?
@@ -231,39 +246,59 @@ class BinarySearchTree(object):
             raise ValueError()
         node = self._find_node_recursive(item, self.root)
         parent = self._find_parent_node_recursive(item, self.root)
+
+        if node == self.root:
+            if self.root.is_leaf():
+                self.root = None
+                return
+
+            new_node = BinaryTreeNode(self.find_inorder_successor(node).data)
+            self.delete(new_node.data)
+
+            if node.left != None:
+                new_node.left = node.left
+            if node.right != None:
+                new_node.right = node.right
+            self.root = new_node
+
         ### no children
-        if (node.left == None) and (node.right == None):
+        elif (node.left == None) and (node.right == None):
             if parent.left == node:
                 parent.left = None
             else:
                 parent.right = None
         ### 1 child
-        elif (node.left != None) or (node.right != None):
-            if node.left != None:
-                if self.root.data == item:
-                    self.root = node.left
-                else:
-                    if node.data < parent.data:
-                        parent.left = node.left
-                    else:
-                        parent.right = node.left
-            if node.right != None:
-                if self.root.data == item:
-                    self.root = node.right
-                else:
-                    print(parent)
-                    if node.data < parent.data:
-                        parent.left = node.right
-                    else:
-                        parent.right = node.right
-        ### 2 child
-        elif (node.left != None) and (node.right != None):
-            if node.data > parent.data:
+        elif(node.left != None) and (node.right == None):
+            # another node on the left
+            if node.data < parent.data:
+                #node is on the left
+                parent.left = node.left
+            else:
+                #node is on the right
+                parent.right = node.left
+        elif(node.left == None) and (node.right != None):
+            # another node on the right
+            if node.data < parent.data:
+                #node is on the left
                 parent.left = node.right
             else:
+                #node is on the right
                 parent.right = node.right
+        ### 2 child
         else:
-            raise ValueError()
+            new_node = BinaryTreeNode(self.find_inorder_successor(node).data)
+            self.delete(new_node.data)
+
+            new_node.left = node.left
+            new_node.right = node.right
+
+            if node.data < parent.data:
+                #node is on the left
+                parent.left = new_node
+            else:
+                #node is on the right
+                parent.right = new_node
+            # node = None
 
     def items_in_order(self):
         """Return an in-order list of all items in this binary search tree."""
@@ -414,8 +449,53 @@ def test_binary_search_tree():
     item = 123
     result = tree.search(item)
     print('search({}): {}'.format(item, result))
+    # print("!!!")
+    # print(tree.find_inorder_successor(tree.root))
+    tree.delete(4)
+    print(tree.root)
+    print(tree.root.left)
+    print(tree.root.right)
+    print(tree.root.left.left)
+    print(tree.root.right.right)
+    print("!!!")
+    tree.delete(6)
+    print(tree.root)
+    print(tree.root.left)
+    print(tree.root.right)
+    print(tree.root.left.left)
+    print(tree.root.right.right)
+    print("!!!")
+    tree.delete(2)
+    print(tree.root)
+    print(tree.root.left)
+    print(tree.root.right)
+    print(tree.root.left.left)
+    print(tree.root.right.right)
+    # tree.delete(1)
+    # print("1")
+    # print(tree.items_in_order())
+    # tree.delete(2)
+    # print("2")
+    # print(tree.items_in_order())
+    # tree.delete(3)
+    # print("3")
+    # print(tree.items_in_order())
+    # tree.delete(4)
+    # print("4")
+    # print(tree.items_in_order())
+    # # print(tree.find_inorder_successor(BinaryTreeNode(5)))
+    # tree.delete(5)
+    # print("5")
+    # print(tree.items_in_order())
+    # tree.delete(6)
+    # print("6")
+    # print(tree.items_in_order())
+    # tree.delete(7)
+    # print("7")
+    # print(tree.items_in_order())
 
     print('\nTraversing items:')
+    print('items in-order:    {}'.format(tree.items_in_order()))
     print('items in-order:    {}'.format(tree.items_in_order()))
     print('items pre-order:   {}'.format(tree.items_pre_order()))
     print('items post-order:  {}'.format(tree.items_post_order()))

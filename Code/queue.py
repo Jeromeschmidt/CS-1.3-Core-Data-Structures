@@ -1,5 +1,7 @@
 #!python
 
+### Deque can be found at: https://github.com/Jeromeschmidt/CS-1.2-Intro-Data-Structures/blob/master/Code/deque.py
+
 from linkedlist import LinkedList
 
 
