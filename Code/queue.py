@@ -33,7 +33,7 @@ class LinkedQueue(object):
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – adding new tail, no list iteration"""
         # TODO: Insert given item
         self.list.append(item)
 
@@ -49,7 +49,7 @@ class LinkedQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – assigning new head pointer"""
         # TODO: Remove and return front item, if any
         if self.is_empty():
             raise ValueError()
@@ -92,7 +92,7 @@ class ArrayQueue(object):
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(n) – Need to shift everything to make room at index 0"""
         # TODO: Insert given item
         self.list.insert(0, item)
 
@@ -107,7 +107,7 @@ class ArrayQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – no shifting needed since removing item at end of list"""
         # TODO: Remove and return front item, if any
         if self.is_empty():
             raise ValueError()
