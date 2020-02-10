@@ -94,7 +94,7 @@ class ArrayQueue(object):
         """Insert the given item at the back of this queue.
         Running time: O(???) – Why? [TODO]"""
         # TODO: Insert given item
-        self.list.append(item)
+        self.list.insert(0, item)
 
     def front(self):
         """Return the item at the front of this queue without removing it,
@@ -102,7 +102,7 @@ class ArrayQueue(object):
         # TODO: Return front item, if any
         if self.is_empty():
             return None
-        return self.list[0]
+        return self.list[len(self.list)-1]
 
     def dequeue(self):
         """Remove and return the item at the front of this queue,
@@ -112,12 +112,12 @@ class ArrayQueue(object):
         if self.is_empty():
             raise ValueError()
         else:
-            temp = self.list[0]
+            temp = self.list[len(self.list)-1]
             self.list.remove(temp)
             return temp
 
 
 # Implement LinkedQueue and ArrayQueue above, then change the assignment below
 # to use each of your Queue implementations to verify they each pass all tests
-Queue = LinkedQueue
-# Queue = ArrayQueue
+# Queue = LinkedQueue
+Queue = ArrayQueue

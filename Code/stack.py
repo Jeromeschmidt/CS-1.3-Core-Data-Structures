@@ -1,4 +1,4 @@
--#!python
+#!python
 
 from linkedlist import LinkedList
 
@@ -96,10 +96,9 @@ class ArrayStack(object):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
         # TODO: Return top item, if any
-        try:
+        if self.length() != 0:
             return self.list[self.length()-1]
-        except:
-            return None
+        return None
 
     def pop(self):
         """Remove and return the item on the top of this stack,
@@ -115,5 +114,5 @@ class ArrayStack(object):
 
 # Implement LinkedStack and ArrayStack above, then change the assignment below
 # to use each of your Stack implementations to verify they each pass all tests
-# Stack = LinkedStack
-Stack = ArrayStack
+Stack = LinkedStack
+# Stack = ArrayStack
