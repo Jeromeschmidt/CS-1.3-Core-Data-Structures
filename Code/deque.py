@@ -17,18 +17,22 @@ class Deque(list):
         return False
 
     def enqueue_to_start(self, item):
+        """Time complexity: O(n)"""
         self.list.insert(0, item)
 
     def enqueue_to_end(self, item):
+        """Time complexity: O(1)"""
         self.list.append(item)
 
     def dequeue_from_start(self):
+        """Time complexity: O(n)"""
         if len(self.list) is not 0:
             return self.list.pop(0)
         else:
             raise ValueError()
 
     def dequeue_from_end(self):
+        """Time complexity: O(1)"""
         if len(self.list) is not 0:
             return self.list.pop(len(self)-1)
         else:
