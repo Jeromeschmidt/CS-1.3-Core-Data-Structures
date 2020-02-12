@@ -1,9 +1,5 @@
 #!python
 
-### Deque can be found at: https://github.com/Jeromeschmidt/CS-1.2-Intro-Data-Structures/blob/master/Code/deque.py
-### Circular buffer can be found at: https://github.com/Jeromeschmidt/CS-1.2-Intro-Data-Structures/blob/master/Code
-
-
 from linkedlist import LinkedList
 
 
