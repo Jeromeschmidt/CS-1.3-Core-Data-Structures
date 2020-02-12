@@ -1,6 +1,8 @@
 #!python
 
 ### Deque can be found at: https://github.com/Jeromeschmidt/CS-1.2-Intro-Data-Structures/blob/master/Code/deque.py
+### Circular buffer can be found at: https://github.com/Jeromeschmidt/CS-1.2-Intro-Data-Structures/blob/master/Code
+
 
 from linkedlist import LinkedList
 
@@ -41,10 +43,9 @@ class LinkedQueue(object):
         """Return the item at the front of this queue without removing it,
         or None if this queue is empty."""
         # TODO: Return front item, if any
-        try:
+        if self.list.is_empty() == False:
             return self.list.head.data
-        except:
-            return None
+        return None
 
     def dequeue(self):
         """Remove and return the item at the front of this queue,
