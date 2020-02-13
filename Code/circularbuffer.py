@@ -16,6 +16,11 @@ class CircularBuffer(list):
             return True
         return False
 
+    def is_full(self):
+        if self.size == self.max_size:
+            return True
+        return False
+
     def length(self):
         return self.size
 

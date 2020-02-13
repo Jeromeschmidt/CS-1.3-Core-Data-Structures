@@ -71,9 +71,11 @@ class CircularBufferTest(unittest.TestCase):
         cb = CircularBuffer(5, ['A', 'B', 'C', 'D', 'E'])
         assert cb.front() == 'A'
         assert cb.length() == 5
+        assert cb.is_full() is True
         cb.enqueue('X')
         assert cb.front() == 'X'
         assert cb.length() == 5
+        assert cb.is_full() is True
 
 
 if __name__ == '__main__':
