@@ -1,71 +1,79 @@
 #!python
 
-from queue import Queue
+from circularbuffer import CircularBuffer
 import unittest
 
 
-class QueueTest(unittest.TestCase):
+class CircularBufferTest(unittest.TestCase):
 
     def test_init(self):
-        q = Queue()
-        assert q.front() is None
-        assert q.length() == 0
-        assert q.is_empty() is True
+        cb = CircularBuffer(5)
+        assert cb.front() is None
+        assert cb.length() == 0
+        assert cb.is_empty() is True
 
     def test_init_with_list(self):
-        q = Queue(['A', 'B', 'C'])
-        assert q.front() == 'A'
-        assert q.length() == 3
-        assert q.is_empty() is False
+        cb = CircularBuffer(5, ['A', 'B', 'C'])
+        assert cb.front() == 'A'
+        assert cb.length() == 3
+        assert cb.is_empty() is False
 
     def test_length(self):
-        q = Queue()
-        assert q.length() == 0
-        q.enqueue('A')
-        assert q.length() == 1
-        q.enqueue('B')
-        assert q.length() == 2
-        q.dequeue()
-        assert q.length() == 1
-        q.dequeue()
-        assert q.length() == 0
+        cb = CircularBuffer(5)
+        assert cb.length() == 0
+        cb.enqueue('A')
+        assert cb.length() == 1
+        cb.enqueue('B')
+        assert cb.length() == 2
+        cb.dequeue()
+        assert cb.length() == 1
+        cb.dequeue()
+        assert cb.length() == 0
 
     def test_enqueue(self):
-        q = Queue()
-        q.enqueue('A')
-        assert q.front() == 'A'
-        assert q.length() == 1
-        q.enqueue('B')
-        assert q.front() == 'A'
-        assert q.length() == 2
-        q.enqueue('C')
-        assert q.front() == 'A'
-        assert q.length() == 3
-        assert q.is_empty() is False
+        cb = CircularBuffer(5)
+        cb.enqueue('A')
+        assert cb.front() == 'A'
+        assert cb.length() == 1
+        cb.enqueue('B')
+        assert cb.front() == 'A'
+        assert cb.length() == 2
+        cb.enqueue('C')
+        assert cb.front() == 'A'
+        assert cb.length() == 3
+        assert cb.is_empty() is False
 
     def test_front(self):
-        q = Queue()
-        assert q.front() is None
-        q.enqueue('A')
-        assert q.front() == 'A'
-        q.enqueue('B')
-        assert q.front() == 'A'
-        q.dequeue()
-        assert q.front() == 'B'
-        q.dequeue()
-        assert q.front() is None
+        cb = CircularBuffer(5)
+        assert cb.front() is None
+        cb.enqueue('A')
+        assert cb.front() == 'A'
+        cb.enqueue('B')
+        assert cb.front() == 'A'
+        cb.dequeue()
+        assert cb.front() == 'B'
+        cb.dequeue()
+        assert cb.front() is None
 
     def test_dequeue(self):
-        q = Queue(['A', 'B', 'C'])
-        assert q.dequeue() == 'A'
-        assert q.length() == 2
-        assert q.dequeue() == 'B'
-        assert q.length() == 1
-        assert q.dequeue() == 'C'
-        assert q.length() == 0
-        assert q.is_empty() is True
+        cb = CircularBuffer(5, ['A', 'B', 'C'])
+        assert cb.dequeue() == 'A'
+        assert cb.length() == 2
+        assert cb.dequeue() == 'B'
+        assert cb.length() == 1
+        assert cb.dequeue() == 'C'
+        assert cb.length() == 0
+        assert cb.is_empty() is True
         with self.assertRaises(ValueError):
-            q.dequeue()
+            cb.dequeue()
+
+    def test_rollover(self):
+        cb = CircularBuffer(5, ['A', 'B', 'C', 'D', 'E'])
+        assert cb.front() == 'A'
+        assert cb.length() == 5
+        cb.enqueue('X')
+        assert cb.front() == 'X'
+        assert cb.length() == 5
 
 
 if __name__ == '__main__':

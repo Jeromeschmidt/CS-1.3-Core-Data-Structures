@@ -1,26 +1,48 @@
 
 class CircularBuffer(list):
 
-    def __init__(self, size):
+    def __init__(self, max_size, iterable=None):
         """Initialize this node with the given data."""
         # self = list()
-        self.size = size
+        self.max_size = max_size
+        self.size = 0
         self.ph = 0
+        if iterable is not None:
+            for item in iterable:
+                self.enqueue(item)
+
+    def is_empty(self):
+        if self.size == 0:
+            return True
+        return False
+
+    def length(self):
+        return self.size
+
+    def front(self):
+        """Return the item at the front of this queue without removing it,
+        or None if this queue is empty."""
+        # TODO: Return front item, if any
+        if self.is_empty() == False:
+            return self[0]
+        return None
 
     def enqueue(self, item):
-        if len(self) < self.size:
+        if len(self) < self.max_size:
             self.append(item)
+            self.size += 1
         else:
             self[self.ph] = item
             self.ph += 1
-        if self.ph == self.size:
+        if self.ph == self.max_size:
             self.ph = 0
 
     def dequeue(self):
         if len(self) is not 0:
+            self.size -= 1
             return self.pop(0)
         else:
-            return "nothing in queue"
+            raise ValueError()
 
     def iterate(self):
         all_items = []
