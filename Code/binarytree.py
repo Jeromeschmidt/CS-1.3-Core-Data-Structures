@@ -1,5 +1,7 @@
 #!python
-from queue import LinkedQueue
+
+from queue2 import LinkedQueue
+from stack import LinkedStack
 
 class BinaryTreeNode(object):
 
@@ -305,7 +307,8 @@ class BinarySearchTree(object):
         items = []
         if not self.is_empty():
             # Traverse tree in-order from root, appending each node's item
-            self._traverse_in_order_recursive(self.root, items.append)
+            # self._traverse_in_order_recursive(self.root, items.append)
+            self._traverse_in_order_iterative(self.root, items.append)
         # Return in-order list of all items in tree
         return items
 
@@ -331,6 +334,17 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # TODO: Traverse in-order without using recursion (stretch challenge)
+        stack = LinkedStack()
+        stack.push(self.root)
+        while stack.is_empty() is False:
+
+            if node.left != None:
+                stack.push(node.left)
+            node = stack.pop()
+
+            visit(node.data)
+            if node.right != None:
+                stack.push(node.right)
 
     def items_pre_order(self):
         """Return a pre-order list of all items in this binary search tree."""
