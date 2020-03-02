@@ -102,8 +102,8 @@ class SetTest(unittest.TestCase):
 
         assert new_set.contains(1) is True
         assert new_set.contains(2) is True
-        assert new_set.contains(4) is True
-        assert new_set.contains(5) is True
+        assert new_set.contains(4) is False
+        assert new_set.contains(5) is False
 
     def test_is_subset(self):
         set_1 = Set([1, 2, 3])

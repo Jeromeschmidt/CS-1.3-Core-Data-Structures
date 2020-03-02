@@ -46,19 +46,19 @@ class Set:
         return result
 
     def difference(self, other_set):
-        """TODO: Running time: O(n*squared(k)), have to visit every node
+        """TODO: Running time: O(n), have to visit every node
         TODO: Memory usage: O(n+k) nodes are stored on stack"""
         result = Set()
         for elm in self.tree.items_in_order():
             if not other_set.contains(elm):
                 result.add(elm)
         for elm in other_set.tree.items_in_order():
-            if elm not in self.tree.items_in_order():
-                result.add(elm)
+            if elm in result.tree.items_in_order():
+                result.remove(elm)
         return result
 
     def is_subset(self, other_set):
-        """TODO: Running time: O(n*squared(k)), have to visit every node
+        """TODO: Running time: O(n) worst, O(1 best), have to visit every node
         TODO: Memory usage: O(n+k) nodes are stored on stack"""
         if self.size > other_set.size:
             return False
