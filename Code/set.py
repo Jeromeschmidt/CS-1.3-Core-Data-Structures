@@ -28,6 +28,8 @@ class Set:
         self.size -= 1
 
     def union(self, other_set):
+        """TODO: Running time: O(n*squared(k)), have to visit every node
+        TODO: Memory usage: O(n+k) nodes are stored on stack"""
         result = self.tree.items_in_order()
         for elm in other_set.tree.items_in_order():
             if elm not in result:
@@ -35,6 +37,8 @@ class Set:
         return Set(result)
 
     def intersection(self, other_set):
+        """TODO: Running time: O(n*squared(k)), have to visit every node
+        TODO: Memory usage: O(n+k) nodes are stored on stack"""
         result = Set()
         for elm in self.tree.items_in_order():
             if other_set.contains(elm):
@@ -42,6 +46,8 @@ class Set:
         return result
 
     def difference(self, other_set):
+        """TODO: Running time: O(n*squared(k)), have to visit every node
+        TODO: Memory usage: O(n+k) nodes are stored on stack"""
         result = Set()
         for elm in self.tree.items_in_order():
             if not other_set.contains(elm):
@@ -52,6 +58,8 @@ class Set:
         return result
 
     def is_subset(self, other_set):
+        """TODO: Running time: O(n*squared(k)), have to visit every node
+        TODO: Memory usage: O(n+k) nodes are stored on stack"""
         if self.size > other_set.size:
             return False
 
