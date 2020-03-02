@@ -335,16 +335,17 @@ class BinarySearchTree(object):
         TODO: Memory usage: O(n) nodes are stored on stack"""
         # TODO: Traverse in-order without using recursion (stretch challenge)
         stack = LinkedStack()
-        stack.push(self.root)
-        while stack.is_empty() is False:
+        node = self.root
+        while ((node is not None) or (not stack.is_empty())):
+            if node is not None:
+                stack.push(node)
+                node = node.left
 
-            if node.left != None:
-                stack.push(node.left)
-            node = stack.pop()
+            elif not stack.is_empty():
+                node = stack.pop()
+                visit(node.data)
+                node = node.right
 
-            visit(node.data)
-            if node.right != None:
-                stack.push(node.right)
 
     def items_pre_order(self):
         """Return a pre-order list of all items in this binary search tree."""
@@ -407,6 +408,7 @@ class BinarySearchTree(object):
         TODO: Running time: O(n), have to visit every node
         TODO: Memory usage: O(n) nodes are stored on stack"""
         # TODO: Traverse post-order without using recursion (stretch challenge)
+
 
     def items_level_order(self):
         """Return a level-order list of all items in this binary search tree."""
