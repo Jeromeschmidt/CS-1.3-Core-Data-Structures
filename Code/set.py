@@ -11,6 +11,9 @@ class Set:
     def size(self):
         return self.tree.size
 
+    def __iter__(self):
+            return self
+
     def contains(self, element):
         if self.tree.contains(element):
             return True
