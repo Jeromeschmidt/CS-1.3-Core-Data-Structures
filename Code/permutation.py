@@ -1,4 +1,0 @@
-
-
-def permutation(word):
-    pass
